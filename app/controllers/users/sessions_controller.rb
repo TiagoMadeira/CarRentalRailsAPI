@@ -1,16 +1,25 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include RackSessionFix
   respond_to :json
 
   private
-  def respond_with(resource, _opts = {})
+
+  def respond_with(current_user, _opts = {})
     render json: {
       message: 'You are logged in',
       data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
+      
     }, status: :ok
 
-    def responds_to_on_destroy
+    def respond_to_on_destroy
+      debugger
+      if request.headers['Authorization'].present?
+        jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, Rails.application.credentials.devise_jwt_secret_key!).first
+        current_user = User.find(jwt_payload['sub'])
+      end
+      debugger
       logout_success && return if current_user
 
       log_out_failure

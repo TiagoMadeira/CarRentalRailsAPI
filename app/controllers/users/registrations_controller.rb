@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-
+  include RackSessionFix
   respond_to :json
+
   private
 
   def respond_with(resource, _opts = {})
     register_success && return if resource.persisted?
     
     register_failed
-  
   end
 
   def register_success
@@ -21,10 +21,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def register_failed
     render json: {
-      status: {code: 422, message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}"}
+      status: {code: 422, message: "User couldn't be created successfully. #{current_user&.errors&.full_messages&.to_sentence}"}
     }, status: :unprocessable_entity
   end
-end
+
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
