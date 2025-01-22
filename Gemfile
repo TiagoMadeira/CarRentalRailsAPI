@@ -27,7 +27,7 @@ gem 'devise'
 gem 'devise-jwt'
 
 #Serializer gem
-
+gem 'jsonapi-serializer'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
