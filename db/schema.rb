@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_22_160115) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_23_164749) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -23,5 +23,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_22_160115) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.integer "category", default: 0
+    t.integer "transmission", default: 0
+    t.integer "type", default: 0
+    t.decimal "cost", null: false
+    t.integer "capacity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "brand", null: false
+    t.string "model", null: false
   end
 end
