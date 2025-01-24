@@ -8,29 +8,26 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(current_user, _opts = {})
     render json: {
-      message: 'You are logged in',
+      message: "You are logged in",
       data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
-      
+
     }, status: :ok
 
     def respond_to_on_destroy
-      debugger
-      if request.headers['Authorization'].present?
-        jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, Rails.application.credentials.devise_jwt_secret_key!).first
-        current_user = User.find(jwt_payload['sub'])
+      if request.headers["Authorization"].present?
+        jwt_payload = JWT.decode(request.headers["Authorization"].split(" ").last, Rails.application.credentials.devise_jwt_secret_key!).first
+        current_user = User.find(jwt_payload["sub"])
       end
-      debugger
       logout_success && return if current_user
-
       log_out_failure
     end
 
     def logout_success
-      render json: { message: 'You are logged out'}, status: :ok
+      render json: { message: "You are logged out" }, status: :ok
     end
 
     def log_out_failure
-      render json: { message: 'Logout failed'}, status: :unauthorized
+      render json: { message: "Logout failed" }, status: :unauthorized
     end
   end
   # before_action :configure_sign_in_params, only: [:create]
