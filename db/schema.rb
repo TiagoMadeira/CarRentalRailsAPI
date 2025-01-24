@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_23_164749) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_24_180903) do
+  create_table "blocked_dates", force: :cascade do |t|
+    t.date "start_date"
+    t.date "finish_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "rental_id", null: false
+    t.index ["rental_id"], name: "index_blocked_dates_on_rental_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.boolean "canceled"
+    t.integer "user_id"
+    t.integer "vehicle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_rentals_on_user_id"
+    t.index ["vehicle_id"], name: "index_rentals_on_vehicle_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -35,5 +54,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_23_164749) do
     t.datetime "updated_at", null: false
     t.string "brand", null: false
     t.string "model", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_vehicles_on_user_id"
   end
+
+  add_foreign_key "blocked_dates", "rentals"
+  add_foreign_key "vehicles", "users"
 end
