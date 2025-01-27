@@ -1,4 +1,5 @@
 class Vehicle < ApplicationRecord
+  belongs_to :user
   enum categroy: [ :small, :medium, :big, :suv, :lux ]
   enum transmission: [ :manual, :auto ]
   enum type: [ :car, :motocycle ]
