@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+minimum_valid_vehicle:
+  id: 1
+  model: "valid_model"
+  brand: "Valid_brand"
+  cost: 9.99
+  user_id: 1
+
+
+lengthy_brand_vehicle:
+  id: 2
+  model: "valid_model"
+  brand: "toooooooooooooooooooooooooooo big"
+  cost: 9.99
+  user_id: 1
+
+lengthy_model_vehicle:
+  id: 3
+  model: "toooooooooooooooooooooooooooo big"
+  brand: "Valid_brand"
+  cost: 9.99
+  user_id: 1

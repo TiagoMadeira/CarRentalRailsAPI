@@ -11,7 +11,7 @@ gem "puma", ">= 5.0"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-gem 'rack-cors'
+gem "rack-cors"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -22,12 +22,12 @@ gem 'rack-cors'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-#Devive gem for user auth
-gem 'devise'
-gem 'devise-jwt'
+# Devive gem for user auth
+gem "devise"
+gem "devise-jwt"
 
-#Serializer gem
-gem 'jsonapi-serializer'
+# Serializer gem
+gem "jsonapi-serializer"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -47,6 +47,6 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "rspec-rails"
 end
-
-

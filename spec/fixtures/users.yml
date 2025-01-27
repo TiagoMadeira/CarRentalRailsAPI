@@ -4,8 +4,10 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
+minimum_valid_user:
+  id: 1
+  email: good@email.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  jti: 58cfcba3-a3c7-48dd-ba0c-038b84f6543a
+
 # column: value

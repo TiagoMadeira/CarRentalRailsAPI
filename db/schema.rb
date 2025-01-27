@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_24_180903) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_27_165132) do
   create_table "blocked_dates", force: :cascade do |t|
     t.date "start_date"
     t.date "finish_date"
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_24_180903) do
   create_table "vehicles", force: :cascade do |t|
     t.integer "category", default: 0
     t.integer "transmission", default: 0
-    t.integer "type", default: 0
+    t.integer "vehicle_type", default: 0
     t.decimal "cost", null: false
     t.integer "capacity", default: 0
     t.datetime "created_at", null: false

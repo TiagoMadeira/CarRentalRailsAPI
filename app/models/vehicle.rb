@@ -1,10 +1,10 @@
 class Vehicle < ApplicationRecord
   belongs_to :user
-  enum categroy: [ :small, :medium, :big, :suv, :lux ]
+  enum category: [ :small, :medium, :big, :suv, :lux ]
   enum transmission: [ :manual, :auto ]
-  enum type: [ :car, :motocycle ]
+  enum vehicle_type: [ :car, :motocycle ]
   enum capacity: [ "1-4", "5-6", "7 plus" ].freeze
 
-  validates_presence_of :brand, :model, :cost
+  validates_presence_of :brand, :model, :cost, :user
   validates :brand, :model, length: { maximum: 15 }
 end
