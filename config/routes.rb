@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "up" => "rails/health#show", as: :rails_health_check
       resources :vehicles
+      resources :rentals, except: [ :index ]
     end
   end
 
