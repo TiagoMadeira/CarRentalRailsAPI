@@ -8,10 +8,10 @@ class Api::V1::RentalsController < ApplicationController
 
     # POST /rentals
     def create
-      @rental = Rental.new(rental_params)
+      @rental = Rental.create(rental_create_params)
 
-      if @rental.save
-        render json: @rental, status: :created, location: @rental
+      if @rental.save && @rental.blocked_date.save
+        render json: @rental, include: [ :blocked_date ], status: :created
       else
         render json: @rental.errors, status: :unprocessable_entity
       end
@@ -38,6 +38,10 @@ class Api::V1::RentalsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rental_params
-      params.require(:rental).permit(:vehicle_id, blocked_dates: [ :start_date, :end_date ])
+      params.require(:rental).permit(:vehicle_id, blocked_date_attributes: [ :start_date, :finish_date ])
+    end
+
+    def rental_create_params
+      rental_params.merge!({ "user_id" => current_user.id })
     end
 end
