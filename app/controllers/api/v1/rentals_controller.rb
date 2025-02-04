@@ -18,7 +18,7 @@ class Api::V1::RentalsController < ApplicationController
 
     # PATCH/PUT /rentals/1
     def update
-      if @rental.blocked_date.update_attributes!(rental_params(blocked_date_attributes:))
+      if @rental.update(rental_update_params)
         render json: @rental
       else
         render json: @rental.errors, status: :unprocessable_entity
@@ -27,7 +27,7 @@ class Api::V1::RentalsController < ApplicationController
 
     #
     def cancel
-      if @rental.update_attributes!(canceled: true)
+      if @rental.update(canceled: true)
       else
         render json: @rental.errors, status: :unprocessable_entity
       end
@@ -45,5 +45,9 @@ class Api::V1::RentalsController < ApplicationController
 
     def rental_create_params
       rental_params.merge!({ "user_id" => current_user.id })
+    end
+
+    def rental_update_params
+      params.require(:rental).permit(:id, blocked_date_attributes: [ :start_date, :finish_date ])
     end
 end

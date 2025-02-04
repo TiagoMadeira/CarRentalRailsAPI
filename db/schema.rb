@@ -16,12 +16,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_27_165132) do
     t.date "finish_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "rental_id", null: false
+    t.integer "rental_id"
     t.index ["rental_id"], name: "index_blocked_dates_on_rental_id"
   end
 
   create_table "rentals", force: :cascade do |t|
-    t.boolean "canceled"
+    t.boolean "canceled", default: false
     t.integer "user_id"
     t.integer "vehicle_id"
     t.datetime "created_at", null: false

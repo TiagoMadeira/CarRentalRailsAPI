@@ -2,23 +2,19 @@ class Rental < ApplicationRecord
   belongs_to :vehicle
   belongs_to :user
   has_one :blocked_date
-  accepts_nested_attributes_for :blocked_date
+  accepts_nested_attributes_for :blocked_date, allow_destroy: true
+
 
   STATES = %i[canceled concluded ongoing upcoming]
+
   # VALIDATIONS
 
   # create
   validates_presence_of :blocked_date, :user_id, :vehicle_id, on: :create
-  validate :validates_dates_available, on: :create
 
-  # update
-  validate :validates_dates_available,  on: :update, if: blocked_date.present?
+  # create & update
+  validate :validates_dates, on: [ :create, :update ], if: :should_validate_dates?
 
-  # cancel
-  validate :validates_cancel, on: :update, if: canceled.present?
-
-  # CALLBACKS
-  after_update :destroy_blocked_date_if_canceled
 
   def total_rental_cost
     self.vehicle.cost * (self.blocked_date.finish_date - self.blocked_date.start_date)
@@ -43,21 +39,39 @@ class Rental < ApplicationRecord
 
   private
 
+  def should_validate_dates?
+    self.canceled == False
+  end
+  # Ment to be used as a validation auxiliary method, excludes self blocked from array
+  def vehicle_blocked_dates
+    self.vehicle.blocked_dates.reject { |b| b.id == blocked_date.id }
+  end
+
   def  destroy_blocked_date_if_canceled
     self.blocked_date.destroy if saved_change_to_canceled?
   end
 
+  # Validation Methods
   def validates_cancel
     errors.add("Rental cannot be canceled") unless cancelable?
   end
 
   # Checks if passed blocked_dates overlap with vehicle's active_blocked_dates
-  def validates_dates_available
-    self.vehicle.active_blocked_dates.each do |vehicle_blocked_date|
+  def validates_dates
+    dates_available
+    set_correct_time
+  end
+
+  def dates_available
+    vehicle_blocked_dates.each do |vehicle_blocked_date|
       if blocked_date.start_date <= vehicle_blocked_date.finish_date && vehicle_blocked_date.start_date <= blocked_date.finish_date
         errors.add(:blocked_date, "Vehicle is not available for rent at the inserted dates!")
         break
       end
     end
+  end
+
+  def set_correct_time
+    errors.add(:blocked_date, "finish and start dates shouldn't be before today") unless blocked_date.finish_date > Date.today &&  blocked_date.start_date > Date.today
   end
 end

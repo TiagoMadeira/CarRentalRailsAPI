@@ -2,7 +2,9 @@ class Vehicle < ApplicationRecord
   belongs_to :user
   has_many :rentals
   has_many :active_rentals, -> { where(canceled: false) }, class_name: "Rental"
-  has_many :active_blocked_dates, through: :active_rentals, class_name: "BlockedDate"
+  has_many :blocked_dates, through: :active_rentals, class_name: "BlockedDate"
+
+
 
   enum category: [ :small, :medium, :big, :suv, :truck ]
   enum transmission: [ :manual, :auto ]
