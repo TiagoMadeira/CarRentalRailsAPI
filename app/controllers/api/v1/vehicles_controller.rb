@@ -3,7 +3,7 @@ class Api::V1::VehiclesController < ApplicationController
 
   # GET /vehicles
   def index
-    @vehicles = Vehicle.all
+    @vehicles =Vehicle.filter(vehicle_index_params)
 
     render json: @vehicles
   end
@@ -47,6 +47,10 @@ class Api::V1::VehiclesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def vehicle_params
       params.require(:vehicle).permit(:brand, :model, :category, :transmission, :vehicle_type, :cost, :capacity)
+    end
+
+    def vehicle_index_params
+      params.require(:vehicle).permit(:brand, :model, :category, :transmission, :vehicle_type, :bottom_cost, :upepr_cost,  :capacity)
     end
 
     def create_params
