@@ -1,0 +1,17 @@
+
+upcoming_valid_rental:
+  user: minimum_valid_user
+  vehicle: minimum_valid_vehicle
+
+ongoing_valid_rental:
+  user: minimum_valid_user
+  vehicle: minimum_valid_vehicle
+
+concluded_valid_rental:
+  user: minimum_valid_user
+  vehicle: minimum_valid_vehicle
+
+canceled_valid_rental:
+  user: minimum_valid_user
+  vehicle: minimum_valid_vehicle
+  canceled: true
