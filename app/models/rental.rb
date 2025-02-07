@@ -9,7 +9,7 @@ class Rental < ApplicationRecord
   # VALIDATIONS
 
   # create
-  validates_presence_of :blocked_date, :user_id, :vehicle_id, on: :create
+  validates_presence_of :blocked_date, :user_id, :vehicle_id
 
   # create & update
   validate :dates_available, on: [ :create, :update ], if: :should_validate_dates?
@@ -37,7 +37,7 @@ class Rental < ApplicationRecord
   private
 
   def should_validate_dates?
-    self.canceled == False
+    self.canceled == false && self.vehicle.present?
   end
 
   def  destroy_blocked_date_if_canceled
@@ -52,10 +52,10 @@ class Rental < ApplicationRecord
 
   # Checks if passed blocked_dates overlap with vehicle's active_blocked_dates
   def dates_available
-    vehicle_blocked_dates = self.vehicle.blocked_dates.reject { |b| b.id == blocked_date.id }
+    vehicle_blocked_dates = self.vehicle.blocked_dates.reject { |b| b.id == self.blocked_date.id }
     vehicle_blocked_dates.each do |vehicle_blocked_date|
-      if blocked_date.start_date <= vehicle_blocked_date.finish_date && vehicle_blocked_date.start_date <= blocked_date.finish_date
-        errors.add(:blocked_date, "Vehicle is not available for rent at the inserted dates!")
+      if self.blocked_date.start_date <= vehicle_blocked_date.finish_date && vehicle_blocked_date.start_date <= self.blocked_date.finish_date
+        errors.add(:blocked_date_availability, "Vehicle is not available for rent at the inserted dates!")
         break
       end
     end

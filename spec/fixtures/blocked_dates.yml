@@ -4,13 +4,13 @@ ongoing_blocked_date:
   rental: ongoing_valid_rental
 
 upcoming_blocked_date:
-  start_date: <%= Date.today + 2.days %>
-  finish_date: <%= Date.today + 4.days %>
+  start_date: <%= Date.today + 3.days %>
+  finish_date: <%= Date.today + 5.days %>
   rental: upcoming_valid_rental
 
 passed_blocked_date:
-  start_date: <%= Date.today - 4.days %>
-  finish_date: <%= Date.today - 2.days %>
+  start_date: <%= Date.today - 5.days %>
+  finish_date: <%= Date.today - 3.days %>
   rental: concluded_valid_rental
 
 
