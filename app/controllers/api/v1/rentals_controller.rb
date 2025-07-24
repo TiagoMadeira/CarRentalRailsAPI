@@ -1,4 +1,4 @@
-class Api::V1::RentalsController < ApplicationController
+class Api::V1::RentalsController < API::V1::APIController
   before_action :set_rental, only: %i[ show update cancel]
     # GET /rentals/1
     def show

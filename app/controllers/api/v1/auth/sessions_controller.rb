@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Auth::SessionsController < Devise::SessionsController
-  include RackSessionFix
-  respond_to :json
+  include API::Concerns::ApiConcerns
 
   private
 

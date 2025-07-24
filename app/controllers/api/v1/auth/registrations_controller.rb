@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Auth::RegistrationsController < Devise::RegistrationsController
-  include RackSessionFix
-  respond_to :json
-
+  include API::Concerns::ApiConcerns
   private
 
   def respond_with(resource, _opts = {})
