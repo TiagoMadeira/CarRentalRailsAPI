@@ -1,0 +1,12 @@
+name: 'prod'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: 027f9793886bea99911fe06c171a84a5
+    ports:
+      - "3000:3000"

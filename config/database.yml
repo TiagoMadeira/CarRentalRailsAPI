@@ -27,6 +27,7 @@ test:
 #
 # Similarly, if you deploy your application as a Docker container, you must
 # ensure the database is located in a persisted volume.
+# deal with storage persistence later
 production:
   <<: *default
-  # database: path/to/persistent/storage/production.sqlite3
+  database: storage/production.sqlite3
