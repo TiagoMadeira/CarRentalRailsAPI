@@ -8,19 +8,15 @@ on:
 
 jobs:
   scan_ruby:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/scan.yml
 
   lint:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/lint.yml
 
   test:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/test.yml
 
   build:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/build.yml
     depends_on: [scan_ruby, lint, test]
   
