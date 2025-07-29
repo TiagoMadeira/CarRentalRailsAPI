@@ -2,7 +2,8 @@ name: lint
 
 on:
   workflow_dispatch:
-  
+  workflow_call:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
