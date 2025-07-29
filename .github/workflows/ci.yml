@@ -20,7 +20,7 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   build:
-     runs-on: ubuntu-latest
-     uses: ./.github/workflows/build.yml
-     depends_on: [scan_ruby, lint, test]
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/build.yml
+    depends_on: [scan_ruby, lint, test]
   
