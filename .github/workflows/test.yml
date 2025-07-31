@@ -22,8 +22,8 @@ jobs:
 
       - name: Setup Database
         run: |
-          bundle exec rails parallel:load_schema
-          bundle exec rails parallel:migrate
+          bundle exec rails load_schema
+          bundle exec rails migrate
 
       - name: Run tests
         env:
