@@ -3,6 +3,10 @@ name: test
 on:
   workflow_dispatch:
   workflow_call:
+
+env:
+  RAILS_ENV: test
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
   
 jobs:
   test:
