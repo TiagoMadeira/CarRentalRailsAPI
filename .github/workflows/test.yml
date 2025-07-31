@@ -20,6 +20,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Setup Database
+        run: |
+          bundle exec rails parallel:load_schema
+          bundle exec rails parallel:migrate
+
       - name: Run tests
         env:
           RAILS_ENV: test
