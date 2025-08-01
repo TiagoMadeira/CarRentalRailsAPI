@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   workflow_call:
 
+env:
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
 jobs:
   build-docker:
     runs-on: ubuntu-latest
@@ -11,15 +15,15 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3docker login -u tiagomadeiradock
 
       - name: Build prod Docker image
         uses: docker/build-push-action@v6
         with:
           image: ${{ github.event.repository.name }}/${{github.ref}}:${{ github.sha }}
-          push: false
+          push: true
           file: Dockerfile.dev
