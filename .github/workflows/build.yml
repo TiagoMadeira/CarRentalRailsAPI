@@ -6,6 +6,7 @@ on:
     inputs: 
       docker_user_name:
         description: "Username to login to DockerHub"
+        type: string
         required: true
     secrets:
       docker_access_token:
