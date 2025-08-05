@@ -26,9 +26,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build prod Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
           image: ${{ github.event.repository.name }}/${{ github.ref }}:${{ github.sha }}
           push: true
+          tags: ${{ github.ref }}/${{ github.sha }}
           file: Dockerfile.dev
