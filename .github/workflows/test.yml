@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DEVISE_JWT_SECRET_KEY: ${{secrets.DEVISE_JWT_SECRET_KEY}}
       
     steps:
       - name: Install packages
