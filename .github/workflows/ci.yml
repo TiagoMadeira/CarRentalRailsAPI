@@ -15,8 +15,16 @@ jobs:
 
   test:
     uses: ./.github/workflows/test.yml
+    secrets:
+      rails_master_key: ${{ secrets.RAILS_MASTER_KEY }}
+      devise_jwt_secret_key: ${{ secrets.DEVISE_JWT_SECRET_KEY }}
 
   build:
     uses: ./.github/workflows/build.yml
+    with:
+      docker_user_name: ${{ vars.DOCKER_USERNAME }}
+    secrets:
+      docker_access_token: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
     needs: [scan_ruby, lint, test]
   
